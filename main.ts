@@ -1,26 +1,28 @@
 namespace teachable {
-
     tmnet.init();
 
-    //% block="current label"
-    export function label(): string {
-        return tmnet.getLabel();
-    }
-
-    //% block="confidence"
-    export function confidence(): number {
-        return tmnet.getConfidence();
-    }
-
-    //% block="on label $name received"
+    //% block="on label %name detected"
     export function onLabel(name: string, handler: () => void) {
-        let lastSeen = "";
-        game.onUpdateInterval(200, () => {
-            const current = tmnet.getLabel();
-            if (current == name && lastSeen != name) {
-                handler();
+        let fired = false;
+        game.onUpdate(() => {
+            if (tmnet.getLabel() == name) {
+                if (!fired) {
+                    handler();
+                    fired = true;
+                }
+            } else {
+                fired = false;
             }
-            lastSeen = current;
+        });
+    }
+
+    //% block="current label"
+    export function label(): string { return tmnet.getLabel(); }
+    
+    //% block="show debug overlay"
+    export function showDebug() {
+        game.onUpdate(() => {
+            screen.print("Label: " + tmnet.getLabel(), 0, 0);
         });
     }
 }
