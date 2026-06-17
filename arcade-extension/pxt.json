@@ -1,0 +1,10 @@
+{
+  "name": "tm-receiver",
+  "dependencies": {
+    "device": "*"
+  },
+  "files": [
+    "main.ts",
+    "ws.ts"
+  ]
+}
