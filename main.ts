@@ -1,9 +1,6 @@
 namespace teachable {
 
-    //% block="connect to AI server $url"
-    export function connect(url: string) {
-        tmnet.connect(url);
-    }
+    tmnet.init();
 
     //% block="current label"
     export function label(): string {
@@ -17,10 +14,13 @@ namespace teachable {
 
     //% block="on label $name received"
     export function onLabel(name: string, handler: () => void) {
-        game.onUpdateInterval(100, () => {
-            if (tmnet.getLabel() == name) {
+        let lastSeen = "";
+        game.onUpdateInterval(200, () => {
+            const current = tmnet.getLabel();
+            if (current == name && lastSeen != name) {
                 handler();
             }
+            lastSeen = current;
         });
     }
 }

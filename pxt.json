@@ -1,10 +1,13 @@
 {
-  "name": "tm-receiver",
-  "dependencies": {
-    "device": "*"
-  },
-  "files": [
-    "main.ts",
-    "ws.ts"
-  ]
+    "name": "tm-receiver",
+    "description": "Use Teachable Machine in MakeCode Arcade via postMessage",
+    "dependencies": {
+        "device": "*"
+    },
+    "files": [
+        "main.ts",
+        "ws.ts"
+    ],
+    "supportedTargets": ["arcade"],
+    "preferredEditor": "tsprj"
 }
